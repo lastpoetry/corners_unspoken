@@ -1,4 +1,4 @@
-/* Version: 2026-0202-0330 */
+/* Version: 2026-0202-0500 */
 @import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
 @import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
 
@@ -14,6 +14,10 @@ body {
   color: #f0f0f0;
   overflow: hidden;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Skip to main content link for accessibility */
@@ -235,13 +239,15 @@ footer {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  transition: color 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 8px 12px 8px 0;
   margin: -8px -12px -8px 0;
   position: relative;
   z-index: 10;
   min-height: 44px;
   align-items: flex-start;
+  border-radius: 4px;
+  transform-origin: left center;
 }
 
 .description-text a:hover,
@@ -249,6 +255,35 @@ footer {
   color: #10eab4;
   outline: 2px solid #10eab4;
   outline-offset: 4px;
+  border-radius: 6px;
+  transform: scale(1.15) translateX(5px);
+  filter: blur(0.5px);
+  animation: textDistort 0.6s ease-in-out;
+}
+
+.description-text a:hover::after,
+.description-text a:focus::after {
+  filter: blur(0);
+  animation: none;
+}
+
+@keyframes textDistort {
+  0% {
+    transform: scale(1) translateX(0) skewX(0deg);
+    filter: blur(0px);
+  }
+  30% {
+    transform: scale(1.08) translateX(3px) skewX(2deg);
+    filter: blur(1px);
+  }
+  60% {
+    transform: scale(1.12) translateX(4px) skewX(-1deg);
+    filter: blur(0.8px);
+  }
+  100% {
+    transform: scale(1.15) translateX(5px) skewX(0deg);
+    filter: blur(0.5px);
+  }
 }
 
 .description-text a::after {
@@ -400,6 +435,12 @@ footer {
     padding: 12px 16px 12px 0;
     margin: -12px -16px -12px 0;
     min-height: 48px;
+    border-radius: 5px;
+  }
+  
+  .description-text a:hover,
+  .description-text a:focus {
+    border-radius: 7px;
   }
   
   .description-text a::after {
@@ -453,6 +494,12 @@ footer {
     padding: 14px 18px 14px 0;
     margin: -14px -18px -14px 0;
     min-height: 52px;
+    border-radius: 6px;
+  }
+  
+  .description-text a:hover,
+  .description-text a:focus {
+    border-radius: 8px;
   }
   
   .description-text a::after {
@@ -532,6 +579,12 @@ button:focus-visible {
     padding: 16px 20px 16px 0;
     margin: -16px -20px -16px 0;
     min-height: 56px;
+    border-radius: 6px;
+  }
+  
+  .description-text a:hover,
+  .description-text a:focus {
+    border-radius: 8px;
   }
   
   .title-text {

@@ -1,4 +1,4 @@
-// Version: 2026-0202-0330
+// Version: 2026-0202-0500
 import * as THREE from "https://esm.sh/three";
 import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
 
@@ -223,7 +223,7 @@ const slideData = [
     link: "#"
   },
   {
-    title: "THE MUZIK",
+    title: "SOUNDS",
     number: "04",
     description: "to silence<br>to space<br>to what's unsaid",
     link: "#"
