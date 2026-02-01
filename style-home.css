@@ -53,6 +53,49 @@ body {
   display: block;
   mix-blend-mode: difference;
   filter: brightness(0) invert(1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+  cursor: pointer;
+}
+
+.site-logo:hover {
+  animation: logoShakeAndGrow 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes logoShakeAndGrow {
+  0% {
+    transform: translateX(0) scaleX(1) scaleY(1);
+  }
+  10% {
+    transform: translateX(-3px) rotate(-2deg) scaleX(1.05) scaleY(1.05);
+  }
+  20% {
+    transform: translateX(3px) rotate(2deg) scaleX(1.1) scaleY(1.1);
+  }
+  30% {
+    transform: translateX(-3px) rotate(-2deg) scaleX(1.15) scaleY(1.15);
+  }
+  40% {
+    transform: translateX(3px) rotate(2deg) scaleX(1.2) scaleY(1.2);
+  }
+  50% {
+    transform: translateX(-2px) rotate(-1deg) scaleX(2) scaleY(2);
+  }
+  60% {
+    transform: translateX(2px) rotate(1deg) scaleX(2) scaleY(2);
+  }
+  70% {
+    transform: translateX(-1px) rotate(-0.5deg) scaleX(1.8) scaleY(1.8);
+  }
+  80% {
+    transform: translateX(1px) rotate(0.5deg) scaleX(1.5) scaleY(1.5);
+  }
+  90% {
+    transform: translateX(0) rotate(0deg) scaleX(1.2) scaleY(1.2);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg) scaleX(1) scaleY(1);
+  }
 }
 
 /* Dust/Scratches background effect for the entire site */
@@ -197,7 +240,7 @@ footer {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -639,10 +682,13 @@ button:focus-visible {
   }
   
   .description-text a {
-    padding: 16px 20px 16px 0;
-    margin: -16px -20px -16px 0;
-    min-height: 56px;
+    padding: 20px 24px 20px 0;
+    margin: -20px -24px -20px 0;
+    min-height: 60px;
     border-radius: 6px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .description-text a:hover,
@@ -650,6 +696,7 @@ button:focus-visible {
     border-radius: 8px;
     border-right: 2px solid #10eab4;
     border-bottom: 2px solid #10eab4;
+    padding: 18px 22px 18px 0;
   }
   
   .title-text {

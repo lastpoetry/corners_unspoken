@@ -128,6 +128,35 @@ const createPreloader = () => {
 };
 // Run preloader creation immediately
 createPreloader();
+
+// Logo stretch effect on drag
+const logo = document.querySelector('.site-logo');
+let logoStretchX = 0;
+let logoTargetStretchX = 0;
+
+const updateLogoStretch = () => {
+  // Smooth interpolation
+  logoStretchX += (logoTargetStretchX - logoStretchX) * 0.15;
+  
+  // Apply transform with stretch effect
+  if (Math.abs(logoStretchX) > 0.01) {
+    const scaleX = 1 + Math.abs(logoStretchX) * 0.3;
+    const scaleY = 1 - Math.abs(logoStretchX) * 0.15;
+    const translateX = logoStretchX * 10;
+    logo.style.transform = `translateX(${translateX}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+  } else {
+    logo.style.transform = 'translateX(0) scaleX(1) scaleY(1)';
+  }
+  
+  // Decay
+  logoTargetStretchX *= 0.92;
+  
+  requestAnimationFrame(updateLogoStretch);
+};
+
+// Start logo stretch animation loop
+updateLogoStretch();
+
 // Create ambient particles.
 const particlesContainer = document.getElementById("particles");
 const particleCount = 80;
@@ -211,7 +240,7 @@ const slideData = [
     link: "#"
   },
   {
-    title: "CORNERS UNSPOKEN",
+    title: "CORNERS",
     number: "02",
     description: "in the uneven<br>the broken<br>the overlooked",
     link: "#"
@@ -471,6 +500,10 @@ window.addEventListener("mousemove", (e) => {
   const deltaX = mouseX - dragLastX;
   lastDeltaX = deltaX;
   accumulatedMovement += deltaX;
+  
+  // Update logo stretch based on drag direction
+  logoTargetStretchX = Math.sign(deltaX) * Math.min(1, Math.abs(deltaX) * 0.05);
+  
   const now = performance.now();
   const timeDelta = now - lastMovementInput;
   if (Math.abs(accumulatedMovement) > 1 || timeDelta > 50) {
@@ -528,6 +561,10 @@ window.addEventListener(
   "wheel",
   (e) => {
     e.preventDefault();
+    
+    // Update logo stretch based on wheel direction
+    logoTargetStretchX = Math.sign(e.deltaY) * -0.5;
+    
     const wheelStrength = Math.abs(e.deltaY) * 0.001;
     targetDistortionFactor = Math.min(
       1.0,
@@ -568,6 +605,10 @@ window.addEventListener(
     const deltaX = touchX - touchLastX;
     lastDeltaX = deltaX;
     accumulatedMovement += deltaX;
+    
+    // Update logo stretch based on touch drag direction
+    logoTargetStretchX = Math.sign(deltaX) * Math.min(1, Math.abs(deltaX) * 0.05);
+    
     const now = performance.now();
     const timeDelta = now - lastMovementInput;
     if (Math.abs(accumulatedMovement) > 1 || timeDelta > 50) {
