@@ -1,4 +1,4 @@
-/* Version: 2026-0202-0500 */
+/* Version: 2026-0202-0545 */
 @import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
 @import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
 
@@ -253,8 +253,13 @@ footer {
 .description-text a:hover,
 .description-text a:focus {
   color: #10eab4;
-  outline: 2px solid #10eab4;
-  outline-offset: 4px;
+  outline: none;
+  border-right: 2px solid #10eab4;
+  border-bottom: 2px solid #10eab4;
+  border-left: 2px solid transparent;
+  border-top: 2px solid transparent;
+  padding-right: 10px;
+  padding-bottom: 6px;
   border-radius: 6px;
   transform: scale(1.15) translateX(5px);
   filter: blur(0.5px);
@@ -441,6 +446,8 @@ footer {
   .description-text a:hover,
   .description-text a:focus {
     border-radius: 7px;
+    border-right: 2px solid #10eab4;
+    border-bottom: 2px solid #10eab4;
   }
   
   .description-text a::after {
@@ -500,6 +507,8 @@ footer {
   .description-text a:hover,
   .description-text a:focus {
     border-radius: 8px;
+    border-right: 2px solid #10eab4;
+    border-bottom: 2px solid #10eab4;
   }
   
   .description-text a::after {
@@ -585,6 +594,8 @@ button:focus-visible {
   .description-text a:hover,
   .description-text a:focus {
     border-radius: 8px;
+    border-right: 2px solid #10eab4;
+    border-bottom: 2px solid #10eab4;
   }
   
   .title-text {
