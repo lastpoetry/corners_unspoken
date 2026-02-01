@@ -1,4 +1,4 @@
-// Version: 2026-0202-0700
+// Version: 2026-0202-0730
 import * as THREE from "https://esm.sh/three";
 import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
 
@@ -289,11 +289,32 @@ slideData.forEach((data, i) => {
   titleDiv.appendChild(descriptionText);
   titlesContainer.appendChild(titleDiv);
   
+  // For landscape mobile: make title area clickable but keep description styling
+  const handleLandscapeClick = (e) => {
+    // Check if in landscape mode
+    const isLandscape = window.matchMedia("(max-height: 600px) and (orientation: landscape)").matches;
+    if (isLandscape && (e.target === titleText || e.target === titleNumber)) {
+      e.preventDefault();
+      // Trigger the description link hover effect
+      descriptionLink.focus();
+      // Navigate to link
+      if (data.link && data.link !== '#') {
+        window.location.href = data.link;
+      }
+    }
+  };
+  
+  titleText.addEventListener('click', handleLandscapeClick);
+  titleNumber.addEventListener('click', handleLandscapeClick);
+  titleText.style.cursor = 'pointer';
+  titleNumber.style.cursor = 'pointer';
+  
   titleElements.push({
     element: titleDiv,
     textElement: titleText,
     numberElement: titleNumber,
-    descriptionElement: descriptionText
+    descriptionElement: descriptionText,
+    descriptionLink: descriptionLink
   });
 });
 

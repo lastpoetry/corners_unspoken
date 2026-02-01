@@ -1,4 +1,4 @@
-/* Version: 2026-0202-0700 */
+/* Version: 2026-0202-0730 */
 @import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
 @import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
 
@@ -48,7 +48,7 @@ body {
 }
 
 .site-logo {
-  width: 60px;
+  width: 90px;
   height: auto;
   display: block;
   mix-blend-mode: difference;
@@ -309,16 +309,17 @@ footer {
   align-items: flex-start;
   border-radius: 4px;
   transform-origin: left center;
+  border: 2px solid transparent;
+  border-left: none;
+  border-top: none;
 }
 
 .description-text a:hover,
 .description-text a:focus {
   color: #10eab4;
   outline: none;
-  border-right: 2px solid #10eab4;
-  border-bottom: 2px solid #10eab4;
-  border-left: 2px solid transparent;
-  border-top: 2px solid transparent;
+  border-right-color: #10eab4;
+  border-bottom-color: #10eab4;
   padding-right: 10px;
   padding-bottom: 6px;
   border-radius: 6px;
@@ -461,7 +462,7 @@ footer {
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
   .site-logo {
-    width: 50px;
+    width: 75px;
   }
   
   .logo-container {
@@ -488,7 +489,7 @@ footer {
 
 @media screen and (max-width: 768px) {
   .site-logo {
-    width: 45px;
+    width: 68px;
   }
   
   .logo-container {
@@ -525,8 +526,8 @@ footer {
   .description-text a:hover,
   .description-text a:focus {
     border-radius: 7px;
-    border-right: 2px solid #10eab4;
-    border-bottom: 2px solid #10eab4;
+    border-right-color: #10eab4;
+    border-bottom-color: #10eab4;
   }
   
   .description-text a::after {
@@ -557,7 +558,7 @@ footer {
 
 @media screen and (max-width: 480px) {
   .site-logo {
-    width: 40px;
+    width: 60px;
   }
   
   .logo-container {
@@ -595,8 +596,8 @@ footer {
   .description-text a:hover,
   .description-text a:focus {
     border-radius: 8px;
-    border-right: 2px solid #10eab4;
-    border-bottom: 2px solid #10eab4;
+    border-right-color: #10eab4;
+    border-bottom-color: #10eab4;
   }
   
   .description-text a::after {
@@ -669,7 +670,7 @@ button:focus-visible {
 /* Landscape mobile optimization */
 @media screen and (max-height: 600px) and (orientation: landscape) {
   .site-logo {
-    width: 35px;
+    width: 53px;
   }
   
   .logo-container {
@@ -694,9 +695,18 @@ button:focus-visible {
   .description-text a:hover,
   .description-text a:focus {
     border-radius: 8px;
-    border-right: 2px solid #10eab4;
-    border-bottom: 2px solid #10eab4;
+    border-right-color: #10eab4;
+    border-bottom-color: #10eab4;
     padding: 18px 22px 18px 0;
+  }
+  
+  /* Enable title and number clicking in landscape mode */
+  .title-text,
+  .title-number {
+    pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   
   .title-text {
