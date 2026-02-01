@@ -1,4 +1,4 @@
-// Version: 2026-0202-0545
+// Version: 2026-0202-0600
 import * as THREE from "https://esm.sh/three";
 import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
 
@@ -211,7 +211,7 @@ const slideData = [
     link: "#"
   },
   {
-    title: "CORNERS UNSPOKEN"
+    title: "CORNERS UNSPOKEN",
     number: "02",
     description: "in the uneven<br>the broken<br>the overlooked",
     link: "#"
