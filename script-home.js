@@ -1,4 +1,4 @@
-// Version: 2026-0202-0900
+// Version: 2026-0202-0930
 import * as THREE from "https://esm.sh/three";
 import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
 
@@ -806,4 +806,111 @@ const animate = (time) => {
   updateTitlePositions();
   renderer.render(scene, camera);
 };
+
+// Handle description text links - distinguish between click and drag
+document.addEventListener('DOMContentLoaded', () => {
+  const setupDescriptionLinks = () => {
+    const descriptionLinks = document.querySelectorAll('.description-text a');
+    
+    descriptionLinks.forEach(link => {
+      let linkMouseDownX = 0;
+      let linkMouseDownY = 0;
+      let linkMouseDownTime = 0;
+      let linkIsDragging = false;
+      
+      link.addEventListener('mousedown', (e) => {
+        linkMouseDownX = e.clientX;
+        linkMouseDownY = e.clientY;
+        linkMouseDownTime = Date.now();
+        linkIsDragging = false;
+        
+        // Start tracking drag on the link
+        const handleLinkMouseMove = (moveEvent) => {
+          const deltaX = Math.abs(moveEvent.clientX - linkMouseDownX);
+          const deltaY = Math.abs(moveEvent.clientY - linkMouseDownY);
+          
+          // If moved more than 5 pixels, consider it a drag
+          if (deltaX > 5 || deltaY > 5) {
+            linkIsDragging = true;
+            
+            // Trigger canvas dragging
+            if (!isDragging) {
+              isDragging = true;
+              dragStartX = linkMouseDownX;
+              dragLastX = linkMouseDownX;
+            }
+            
+            // Update drag position
+            const mouseX = moveEvent.clientX;
+            const deltaXDrag = mouseX - dragLastX;
+            lastDeltaX = deltaXDrag;
+            accumulatedMovement += deltaXDrag;
+            
+            // Update logo stretch
+            logoTargetStretchX = Math.sign(deltaXDrag) * Math.min(1.5, Math.abs(deltaXDrag) * 0.15);
+            
+            // Update background parallax
+            parallaxTargetX -= deltaXDrag * 0.3;
+            
+            const now = performance.now();
+            const timeDelta = now - lastMovementInput;
+            if (Math.abs(accumulatedMovement) > 1 || timeDelta > 50) {
+              dragLastX = mouseX;
+              const dragStrength = Math.abs(accumulatedMovement) * 0.02;
+              targetDistortionFactor = Math.min(1.0, targetDistortionFactor + dragStrength);
+              targetPosition -= accumulatedMovement * settings.touchSensitivity;
+              accumulatedMovement = 0;
+              lastMovementInput = now;
+            }
+          }
+        };
+        
+        const handleLinkMouseUp = (upEvent) => {
+          document.removeEventListener('mousemove', handleLinkMouseMove);
+          document.removeEventListener('mouseup', handleLinkMouseUp);
+          
+          const timeDiff = Date.now() - linkMouseDownTime;
+          const deltaX = Math.abs(upEvent.clientX - linkMouseDownX);
+          const deltaY = Math.abs(upEvent.clientY - linkMouseDownY);
+          
+          // If it was a drag, prevent link navigation
+          if (linkIsDragging || deltaX > 5 || deltaY > 5) {
+            e.preventDefault();
+            upEvent.preventDefault();
+            
+            // Complete the drag with momentum
+            if (isDragging) {
+              isDragging = false;
+              const velocity = (dragLastX - dragStartX) * 0.005;
+              if (Math.abs(velocity) > 0.5) {
+                autoScrollSpeed = -velocity * settings.momentumMultiplier * 0.05;
+                targetDistortionFactor = Math.min(1.0, Math.abs(velocity) * 3 * settings.distortionSensitivity);
+                movementDirection.x = Math.sign(velocity) * -1;
+                isScrolling = true;
+                setTimeout(() => {
+                  isScrolling = false;
+                }, 800);
+              }
+            }
+          }
+          // Otherwise, it's a click - allow default link behavior
+        };
+        
+        document.addEventListener('mousemove', handleLinkMouseMove);
+        document.addEventListener('mouseup', handleLinkMouseUp);
+      });
+      
+      // Prevent default click if dragging was detected
+      link.addEventListener('click', (e) => {
+        if (linkIsDragging) {
+          e.preventDefault();
+        }
+      });
+    });
+  };
+  
+  // Setup links after titles are created
+  setTimeout(setupDescriptionLinks, 100);
+});
+
 animate();
